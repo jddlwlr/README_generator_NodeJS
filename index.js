@@ -63,6 +63,16 @@ const questions =[
         name: 'username',
         message: 'Your gitHub username:',
       },
+      {
+        type: 'input',
+        name: 'contribute',
+        message: 'Ways to contribute:',
+      },
+      {
+        type: 'input',
+        name: 'deployed',
+        message: 'link to deployed application:',
+      },
     ];
 
 
@@ -84,7 +94,7 @@ inquirer.prompt(questions).then((answers) => {
   ## Description  
   ${answers.Description}  
   ## Deployed Application  
-  ${answers.Deployed}  
+  [${answers.Tnodeitle} is live!](${answers.deployed})
   ## Github Repo  
   ${answers.repo}  
   ## Installation  
@@ -95,17 +105,17 @@ inquirer.prompt(questions).then((answers) => {
 
   ## Questions
   Contact me with additional questions:  
-  Email me at: <${answers.email}>  
+  Email me at: <${answers.email}>   
   Or contact me through GitHub: [My gitHub profile](https://github.com/${answers.username})
 
   ## License  
-
+  ${answers.license}
   
   
   ## Contribute  
-  // ${answers.Contribute}  
+  ${answers.contribute}  
   ## Tests  
-  // ${answers.Tests}  
+  ${answers.Tests}  
   
   `,
   err => {
@@ -118,40 +128,10 @@ inquirer.prompt(questions).then((answers) => {
     )})};
 
 console.log(output);
-// function buildLicenseFile(selection) {
-//     return `# ${getLicense (selection)}`;
-// };
 
-var badge = function licenseBadge(License) {
-    let badge;
-    switch (License) {
-        case "MIT":
-
-
-        badge = { selection: "MIT", color: "blue" };
-        break;
-        case "Apache 2.0":
-        badge = { selection: "Apache 2.0", color: "green" };
-        break;
-        case "GNU GPL 3.0":
-        badge = { selection: "GNU+GPL+3.0", color: "red" };
-        break;
-    }
-    
-    return `![License](https://img.shields.io/static/v1?label=license&message=${badge.name}&color=${badge.color})`;
-};
-console.log(badge);
-
-
-// Bonus using writeFileSync as a promise
 function init() {
     promptUser();
-    licenseBadge();
-        // Use writeFileSync method to use promises instead of a callback function
-        // .then((answers) => fs.writeFileSync('README.md', buildREADME(answers)))
-        // .then((answers) => fs.writeFileSync('LICENSE.md', buildLicenseFile(answers)))
-        // .then(() => console.log('Successfully wrote to readme.md'))
-        // .catch((err) => console.error(err));
+
 }
 
 console.log(output);
