@@ -39,7 +39,7 @@ const questions =[
     },
     {
         type: 'list',
-        name: 'License',
+        name: 'license',
         message: 'What licence would you like to use?',
         choices: ['MIT','Apache 2.0','GNU GPL 3.0']
       },
@@ -75,92 +75,43 @@ const questions =[
       },
     ];
 
+      function badge(license) {
+    let licenseIcon;
+    switch (license) {
+        case "MIT":
+        licenseIcon = { name: "MIT", color: "blue"};
+        break;
+        case "Apache 2.0":
+        licenseIcon = { name: "Apache+2.0", color: "green"};
+        break;
+        case "GNU GPL 3.0":
+        licenseIcon = { name: "GNU+GPL+3.0", color: "red"};
+        break;
+    }
+    return `![License](https://img.shields.io/static/v1?label=license&message=${licenseIcon.name}&color=${licenseIcon.color})`;    
+  
+  };
 
 function promptUser(){
 
 inquirer.prompt(questions).then((answers) => {
     fs.writeFile('README.md',
-    
-    `# ${answers.Title}
-      ## Table of Contents  
-      1.[Description](#Description)  
-      2.[Installation](#Installation)  
-      3.[Usage](#Usage)  
-      4.[Credits](#Credits)  
-      5.[License](#License)  
-      6.[Badges](#Badges)  
-      7.[Contribute](#Contribute)  
-      8.[Tests](#Tests)  
-    
-      ## Description  
-      ${answers.Description}  
-      ## Deployed Application  
-      [${answers.Title} is live!](${answers.deployed})
-      ## Github Repo  
-      ${answers.repo}  
-      ## Installation  
-      ${answers.Installation}  
-      ## Usage  
-      ${answers.Usage}  
-      ## Credits   
-    
-      ## Questions
-      Contact me with additional questions:  
-      Email me at: <${answers.email}>   
-      Or contact me through GitHub: [My gitHub profile](https://github.com/${answers.username})
-    
-      ## License  
-      ${answers.license}
-      
-      
-      ## Contribute  
-      ${answers.contribute}  
-      ## Tests  
-      ${answers.Tests}  
-      
-      `,
+   
+ ` # ${answers.Title}<div style="text-align: right"> ${badge(answers.license)}</div> 
 
-  // function badge(license) {
-  //   let licenseIcon;
-  //   switch (license) {
-  //       case "MIT":
-  //       licenseIcon = { name: "MIT", color: "blue"};
-  //       break;
-  //       case "Apache 2.0":
-  //       licenseIcon = { name: "Apache+2.0", color: "green"};
-  //       break;
-  //       case "GNU GPL 3.0":
-  //       licenseIcon = { name: "GNU+GPL+3.0", color: "red"};
-  //       break;
-  //   }
-  //   return `![License](https://img.shields.io/static/v1?label=license&message=${licenseIcon.name}&color=${licenseIcon.color})`;    
-  
-  // },
-  // console.log(badge());
-  err =>{
-  if(err){
-    console.log(err)
-  }
-})
-  return answers;
-})
+  ***
 
-};
-
-var content = () => {
-  return `# ${answers.Title}
-${badge(license)}
-  ## Table of Contents  
-  1.[Description](#Description)  
-  2.[Installation](#Installation)  
-  3.[Usage](#Usage)  
-  4.[Credits](#Credits)  
-  5.[License](#License)  
-  6.[Badges](#Badges)  
-  7.[Contribute](#Contribute)  
-  8.[Tests](#Tests)  
-
-  ## Description  
+  ## Table of Contents    
+ - [Description](#Description)  
+ - [Installation](#Installation)  
+ - [Usage](#Usage)  
+ - [Credits](#Credits)  
+ - [License](#License)  
+ - [Badges](#Badges)  
+ - [Contribute](#Contribute)  
+ - [Tests](#Tests)  
+    
+  ## Description   
   ${answers.Description}  
   ## Deployed Application  
   [${answers.Title} is live!](${answers.deployed})
@@ -171,40 +122,31 @@ ${badge(license)}
   ## Usage  
   ${answers.Usage}  
   ## Credits   
-
+    
   ## Questions
   Contact me with additional questions:  
   Email me at: <${answers.email}>   
   Or contact me through GitHub: [My gitHub profile](https://github.com/${answers.username})
-
+    
   ## License  
-  ${answers.license}
-  
-  
+  ${answers.license}  
+  ${badge(answers.license)}   
+      
   ## Contribute  
   ${answers.contribute}  
   ## Tests  
   ${answers.Tests}  
-  
-  `};
-// console.log(answers.license);
+      
+      `,
+  err =>{
+  if(err){
+    console.log(err)
+  }
+})
+  return answers;
+})
 
-// function badge(answers) {
-//   let licenseIcon;
-//   switch (answers.license) {
-//       case "MIT":
-//       licenseIcon = { name: "MIT", color: "blue"};
-//       break;
-//       case "Apache 2.0":
-//       licenseIcon = { name: "Apache+2.0", color: "green"};
-//       break;
-//       case "GNU GPL 3.0":
-//       licenseIcon = { name: "GNU+GPL+3.0", color: "red"};
-//       break;
-//   }
-//   return `![License](https://img.shields.io/static/v1?label=license&message=${licenseIcon.name}&color=${licenseIcon.color})`;    
-
-// };
+};
 
 function init() {
     promptUser();
